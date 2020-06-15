@@ -3,19 +3,23 @@ import Client from '../models/Client';
 import Knex from '../knex';
 
 class ClientsController {
-    public path = '/clients';
-    public router = express.Router();
+    //Define o caminho do controller
+    public path: string = '/clients';
+    //Inicializa o router
+    public router: express.Router = express.Router();
 
     constructor() {
         this.intializeRoutes();
     }
 
-    public intializeRoutes() {
+    public intializeRoutes(): void {
+        //Define rotas do controller
         this.router.get(this.path, this.getAll);
     }
 
-    getAll = (request: express.Request, response: express.Response) => {
-        Knex<Client>('clients').limit(20).then((clients: Client[]) => {
+    public getAll(request: express.Request, response: express.Response): void {
+        //Retorna os primeiros 20 clientes
+        Knex<Client>('client').limit(20).then((clients: Client[]) => {
             response
                 .status(200)
                 .send(clients);
