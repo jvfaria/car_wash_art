@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 import Client from '../models/Client';
 import Knex from '../knex';
 
