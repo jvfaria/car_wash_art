@@ -1,6 +1,6 @@
 //Importa a classe principal
 import App from './app';
-import ClientsController from './controllers/clients';
+import { ClientsController, ServicesController, VehiclesController } from './controllers';
 
 //Define a porta http do servidor
 const port: string = process.env.PORT || "3000";
@@ -9,6 +9,8 @@ const port: string = process.env.PORT || "3000";
 new App(
     [
         new ClientsController(),
+        new ServicesController(),
+        new VehiclesController()
     ],
     port,
 ).start();

@@ -6,7 +6,7 @@ class App {
     public app: express.Application;
     public port: string;
 
-    constructor(controllers, port) {
+    constructor(controllers: any[], port: string) {
         //Instancia o express e executa funções de definição
         this.app = express();
         this.port = port;
@@ -23,40 +23,40 @@ class App {
         //Permite apenas solicitações application/json
         this.app.use(bodyParser.json());
 
-        this.app.use((req, res, next) => {
+        this.app.use((request: express.Request, response: express.Response, next: Function): any => {
             //Permite solicitações externas
-            res.header('Access-Control-Allow-Origin', '*');
+            response.header('Access-Control-Allow-Origin', '*');
             //Define os headers permitidos
-            res.header(
+            response.header(
                 'Access-Control-Allow-Header',
                 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
             );
 
             //Retorna metodos aceitos caso a solicitação seja OPTIONS
-            if (req.method === 'OPTIONS') {
-                res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE');
-                return res.status(200).send();
+            if (request.method === 'OPTIONS') {
+                response.header('Access-Control-Allow-Methods', 'GET, POST, DELETE');
+                response.status(200).send();
             }
 
             next();
         });
     }
 
-    private initializeControllers(controllers): void {
+    private initializeControllers(controllers: any[]): void {
         //Adiciona os controllers adicionados no server.ts
         controllers.forEach((controller) => {
             this.app.use('/', controller.router);
         });
 
         //Se a requisição não corresponder à nenhum controller gera erro
-        this.app.use((req, res, next) => {
+        this.app.use((request: express.Request, response: express.Response, next: Function): void => {
             const error = new Error("Página não encontrada.");
             next(error);
         });
 
         //Caso haja algum erro retorna sua mensagem junto ao HTTP 500
-        this.app.use((err, req, res, next) => {
-            return res.status(500).send({
+        this.app.use((err: Error, request: express.Request, response: express.Response) => {
+            response.status(500).send({
                 error: true,
                 message: err.message || "Houve um problema com nossos servidores. Favor entrar em contato com o suporte."
             });
@@ -65,7 +65,7 @@ class App {
 
     public start(): void {
         //Começa o serviço
-        this.app.listen(this.port, () => {
+        this.app.listen(this.port, (): void => {
             console.log(`Server listening on the port ${this.port}`);
         });
     }
