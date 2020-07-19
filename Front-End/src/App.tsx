@@ -1,13 +1,18 @@
 import React from 'react';
-import './App.css';
+import Routes from './routes/routes';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
+const darkTheme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+});
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        head
-      </header>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <Routes />
+    </ThemeProvider>
   );
 }
 
