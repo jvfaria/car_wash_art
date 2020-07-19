@@ -1,7 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ### Starting the front-end
-Once the project is on your local, run first `npm install` . Make shure you have Node and Yarn package manager installed also.
+Once the project is on your local, run the command `yarn` . Make shure you have Node and Yarn package manager installed also.
 
 ## Available Scripts
 
